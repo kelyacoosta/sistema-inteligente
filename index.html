@@ -27,26 +27,6 @@
             cursor: pointer;
         }
 
-        /* LOGIN */
-        .login-box {
-            max-width: 300px;
-            margin: 100px auto;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
         /* PAGES */
         .page {
             display: none;
@@ -58,13 +38,6 @@
         }
 
         /* CARDS */
-        .card {
-            background: #f7ede2;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
         .card {
             background: #f7ede2;
             padding: 20px;
@@ -212,18 +185,7 @@
 
 <body>
 
-    <!-- LOGIN -->
-    <div id="login" class="page active">
-        <div class="login-box">
-            <h2>🔐 Login</h2>
-            <input type="text" placeholder="Usuário">
-            <input type="password" placeholder="Senha">
-            <button onclick="showPage('home')">Entrar</button>
-        </div>
-    </div>
-
-    <!-- SISTEMA -->
-    <div id="main" style="display:none;">
+    <div id="main">
 
         <nav>
             <a onclick="showPage('home')">Início</a>
@@ -233,7 +195,7 @@
         </nav>
 
         <!-- HOME -->
-        <div id="home" class="page">
+        <div id="home" class="page active">
             <h1>🏭 Sistema Inteligente de Qualidade e Produção</h1>
 
             <div class="info-container">
@@ -276,23 +238,21 @@
                 Sistema com detector de metais, sensores IoT e inteligência artificial para monitoramento contínuo.
             </div>
 
-            <!-- IMPLEMENTAÇÃO -->
             <div class="card">
                 <h3>⚙️ Implementação</h3>
 
                 <p><b>Diagnóstico:</b> análise da produção e identificação de pontos críticos.</p>
                 <p><b>Instalação:</b> detector de metais no final da linha.</p>
                 <p><b>Integração:</b> conexão com sensores e dados em tempo real.</p>
-                <p><b>Inteligência:</b> IA para identificar falhas e gerar alertas automáticos.</p>
-                <p><b>Monitoramento:</b> dashboard com indicadores de produtividade e eficiência.</p>
-                <p><b>Segurança:</b> parada automática da linha e alertas em caso de contaminação.</p>
-                <p><b>Rastreabilidade:</b> registro completo dos lotes e histórico de produção.</p>
-                <p><b>Validação:</b> testes, ajustes e conformidade com normas sanitárias.</p>
-                <p><b>Treinamento:</b> capacitação da equipe para uso do sistema.</p>
-                <p><b>Melhoria contínua:</b> acompanhamento e otimização constante dos processos.</p>
+                <p><b>Inteligência:</b> IA para identificar falhas e gerar alertas.</p>
+                <p><b>Monitoramento:</b> dashboard com indicadores.</p>
+                <p><b>Segurança:</b> parada automática em caso de contaminação.</p>
+                <p><b>Rastreabilidade:</b> registro dos lotes.</p>
+                <p><b>Validação:</b> testes e conformidade.</p>
+                <p><b>Treinamento:</b> capacitação da equipe.</p>
+                <p><b>Melhoria contínua:</b> otimização constante.</p>
             </div>
 
-            <!-- RESTRIÇÃO -->
             <div class="card">
                 <h3 style="text-align:center;">📌 Restrição</h3>
 
@@ -321,6 +281,19 @@
                 <div class="bar"></div>
             </div>
 
+            <!-- RELATÓRIO SEMANAL -->
+            <div class="card">
+                <h3>📅 Relatório Semanal</h3>
+
+                <p><b>Produção total:</b> 8.750 unidades</p>
+                <p><b>Média de eficiência:</b> 91%</p>
+                <p><b>Falhas detectadas:</b> 5 ocorrências</p>
+                <p><b>Status geral:</b> Operação estável</p>
+
+                <p><b>Resumo:</b> A produção manteve um bom nível de eficiência ao longo da semana,
+                    com baixo índice de falhas e rápida atuação do sistema em situações de risco.</p>
+            </div>
+
             <button class="center-btn" onclick="showPage('alerta')">
                 Simular Falha
             </button>
@@ -344,18 +317,11 @@
 
     <script>
         function showPage(pageId) {
-
-            if (pageId !== 'login') {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('main').style.display = 'block';
-            }
-
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
 
-            // 👇 RODA O CONTADOR SÓ NO DASHBOARD
             if (pageId === 'dashboard') {
                 startCounters();
             }
@@ -365,7 +331,7 @@
             const counters = document.querySelectorAll('.counter');
 
             counters.forEach(counter => {
-                counter.innerText = 0; // reset
+                counter.innerText = 0;
 
                 const target = +counter.getAttribute('data-target');
 
