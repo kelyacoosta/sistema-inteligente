@@ -71,12 +71,10 @@
             border-radius: 12px;
             margin-top: 15px;
             transition: 0.2s;
-            /* 👈 adiciona */
         }
 
         .card:hover {
             transform: translateY(-5px);
-            /* 👈 adiciona */
         }
 
         /* INFO CARDS */
@@ -142,7 +140,6 @@
         .chart {
             display: flex;
             justify-content: center;
-            /* 👈 ÚNICA ALTERAÇÃO */
             gap: 10px;
             height: 120px;
             margin-top: 20px;
@@ -286,13 +283,13 @@
                 <p><b>Diagnóstico:</b> análise da produção e identificação de pontos críticos.</p>
                 <p><b>Instalação:</b> detector de metais no final da linha.</p>
                 <p><b>Integração:</b> conexão com sensores e dados em tempo real.</p>
-                <p><b>Inteligência:</b> IA para identificar falhas e gerar alertas.</p>
-                <p><b>Monitoramento:</b> dashboard com indicadores.</p>
-                <p><b>Segurança:</b> parada automática em caso de contaminação.</p>
-                <p><b>Rastreabilidade:</b> registro dos lotes.</p>
-                <p><b>Validação:</b> testes e conformidade.</p>
-                <p><b>Treinamento:</b> capacitação da equipe.</p>
-                <p><b>Melhoria contínua:</b> otimização constante.</p>
+                <p><b>Inteligência:</b> IA para identificar falhas e gerar alertas automáticos.</p>
+                <p><b>Monitoramento:</b> dashboard com indicadores de produtividade e eficiência.</p>
+                <p><b>Segurança:</b> parada automática da linha e alertas em caso de contaminação.</p>
+                <p><b>Rastreabilidade:</b> registro completo dos lotes e histórico de produção.</p>
+                <p><b>Validação:</b> testes, ajustes e conformidade com normas sanitárias.</p>
+                <p><b>Treinamento:</b> capacitação da equipe para uso do sistema.</p>
+                <p><b>Melhoria contínua:</b> acompanhamento e otimização constante dos processos.</p>
             </div>
 
             <!-- RESTRIÇÃO -->
@@ -310,9 +307,9 @@
             <h1>📊 Dashboard</h1>
 
             <div class="dashboard">
-                <div class="box">Produção<br><b>1250</b></div>
-                <div class="box">Eficiência<br><b>92%</b></div>
-                <div class="box">Falhas<br><b>3</b></div>
+                <div class="box">Produção<br><b class="counter" data-target="1250">0</b></div>
+                <div class="box">Eficiência<br><b class="counter" data-target="92">0</b>%</div>
+                <div class="box">Falhas<br><b class="counter" data-target="3">0</b></div>
                 <div class="box">Status<br><b>OK</b></div>
             </div>
 
@@ -357,6 +354,35 @@
             pages.forEach(p => p.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
+
+            // 👇 RODA O CONTADOR SÓ NO DASHBOARD
+            if (pageId === 'dashboard') {
+                startCounters();
+            }
+        }
+
+        function startCounters() {
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                counter.innerText = 0; // reset
+
+                const target = +counter.getAttribute('data-target');
+
+                const updateCount = () => {
+                    const current = +counter.innerText;
+                    const increment = target / 50;
+
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current + increment);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
         }
     </script>
 
